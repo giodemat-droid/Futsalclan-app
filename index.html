@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Futsal Clan - Gestione Calcetto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --primary-dark: #1b5e20;
+            --accent: #fbc02d;
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --text: #333333;
+            --text-light: #666666;
+            --gialli-bg: #fffde7;
+            --gialli-border: #fbc02d;
+            --neri-bg: #eceff1;
+            --neri-border: #37474f;
+            --danger: #d32f2f;
+            --success: #388e3c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text);
+            padding-bottom: 70px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.75rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 25%;
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 3px;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 12px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+            width: 100%;
+        }
+
+        .btn:active {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background-color: #e0e0e0;
+            color: var(--text);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+        }
+
+        .btn-sm {
+            padding: 6px 10px;
+            font-size: 0.8rem;
+            width: auto;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        input[type="text"], input[type="date"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary);
+        }
+
+        /* Classifica Table */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+
+        th, td {
+            padding: 10px 6px;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        td.number, th.number {
+            text-align: center;
+        }
+
+        .rank-pos {
+            font-weight: bold;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #eee;
+            font-size: 0.75rem;
+        }
+
+        .rank-1 { background-color: #ffd700; color: #000; }
+        .rank-2 { background-color: #c0c0c0; color: #000; }
+        .rank-3 { background-color: #cd7f32; color: #fff; }
+
+        /* Match Builder */
+        .player-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 8px;
+            margin-bottom: 16px;
+            max-height: 250px;
+            overflow-y: auto;
+            padding: 4px;
+        }
+
+        .player-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f0f0f0;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .player-checkbox input {
+            accent-color: var(--primary);
+        }
+
+        .team-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .team-box {
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            min-height: 180px;
+        }
+
+        .team-gialli {
+            background-color: var(--gialli-bg);
+            border-color: var(--gialli-border);
+        }
+
+        .team-neri {
+            background-color: var(--neri-bg);
+            border-color: var(--neri-border);
+        }
+
+        .team-header {
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .team-player-list {
+            list-style: none;
+        }
+
+        .team-player-item {
+            padding: 4px 6px;
+            margin-bottom: 4px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .goal-controls {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-goal {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .score-board {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: #222;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .score-team {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .score-team span {
+            font-size: 0.75rem;
+            color: #aaa;
+            font-weight: normal;
+        }
+
+        /* Match History */
+        .history-card {
+            border-left: 4px solid var(--primary);
+        }
+
+        .match-date {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 6px;
+        }
+
+        .match-score {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .badge {
+            background: #e0e0e0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        .tabs-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            font-weight: 600;
+            color: var(--text-light);
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><i class="fas fa-futbol"></i> Futsal Clan Manager</h1>
+    </header>
+
+    <div class="container">
+        <!-- TAB CLASSIFICA -->
+        <div id="tab-classifica" class="tab-content active">
+            <div class="card">
+                <div class="tabs-header">
+                    <button class="tab-btn active" onclick="switchClassificaTab('punti')">Punti</button>
+                    <button class="tab-btn" onclick="switchClassificaTab('gol')">Marcatori</button>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="table-classifica">
+                        <thead>
+                            <tr>
+                                <th class="number">#</th>
+                                <th>Giocatore</th>
+                                <th class="number">P</th>
+                                <th class="number">PG</th>
+                                <th class="number">V</th>
+                                <th class="number">N</th>
+                                <th class="number">S</th>
+                                <th class="number">G</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-classifica">
+                            <!-- Popolato via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB NUOVA PARTITA -->
+        <div id="tab-partita" class="tab-content">
+            <!-- Step 1: Selezione Giocatori -->
+            <div class="card" id="step-selezione">
+                <div class="card-title">
+                    <span>1. Seleziona i Presenti</span>
+                    <span id="count-presenti" class="badge">0 selezionati</span>
+                </div>
+                <div class="player-selector" id="lista-presenti">
+                    <!-- Popolato via JS -->
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-secondary" onclick="resetSelezione()">Deseleziona Tutto</button>
+                    <button class="btn" onclick="procediAFormazioni()">Crea Squadre <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 2: Formazioni e Tabellino Live -->
+            <div class="card" id="step-partita" style="display: none;">
+                <div class="card-title">
+                    <span>2. Partita & Tabellino</span>
+                    <button class="btn btn-sm btn-secondary" onclick="tornaASelezione()"><i class="fas fa-edit"></i> Rosa</button>
+                </div>
+
+                <div class="input-group">
+                    <label style="font-size: 0.85rem; align-self: center;">Data:</label>
+                    <input type="date" id="match-date">
+                </div>
+
+                <div class="score-board">
+                    <div class="score-team">
+                        <span>GIALLI</span>
+                        <div id="score-gialli">0</div>
+                    </div>
+                    <div>-</div>
+                    <div class="score-team">
+                        <span>NERI</span>
+                        <div id="score-neri">0</div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 12px; display: flex; gap: 8px;">
+                    <button class="btn btn-sm btn-secondary" onclick="sorteggiaSquadre()"><i class="fas fa-random"></i> Sorteggia</button>
+                </div>
+
+                <div class="team-container">
+                    <div class="team-box team-gialli">
+                        <div class="team-header">
+                            <span>GIALLI</span>
+                            <i class="fas fa-tshirt" style="color: #fbc02d;"></i>
+                        </div>
+                        <ul class="team-player-list" id="team-gialli-list">
+                            <!-- Popolato via JS -->
+                        </ul>
+                    </div>
+
+                    <div class="team-box team-neri">
+                        <div class="team-header">
+                            <span>NERI</span>
+                            <i class="fas fa-tshirt" style="color: #37474f;"></i>
+                        </div>
+                        <ul class="team-player-list" id="team-neri-list">
+                            <!-- Popolato via JS -->
+                        </ul>
+                    </div>
+                </div>
+
+                <button class="btn btn-success" onclick="salvaPartita()"><i class="fas fa-save"></i> Salva e Termina Partita</button>
+            </div>
+        </div>
+
+        <!-- TAB STORICO -->
+        <div id="tab-storico" class="tab-content">
+            <div id="lista-storico">
+                <!-- Popolato via JS -->
+            </div>
+        </div>
+
+        <!-- TAB GIOCATORI -->
+        <div id="tab-giocatori" class="tab-content">
+            <div class="card">
+                <div class="card-title">Nuovo Giocatore</div>
+                <div class="input-group">
+                    <input type="text" id="new-player-name" placeholder="Nome giocatore">
+                    <button class="btn btn-sm" onclick="aggiungiGiocatore()"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Rosa Giocatori</div>
+                <ul class="team-player-list" id="lista-giocatori-full">
+                    <!-- Popolato via JS -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR IN BASSO -->
+    <nav>
+        <button class="nav-item active" onclick="switchTab('classifica')">
+            <i class="fas fa-trophy"></i>
+            <span>Classifica</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('partita')">
+            <i class="fas fa-plus-circle"></i>
+            <span>Partita</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('storico')">
+            <i class="fas fa-history"></i>
+            <span>Storico</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('giocatori')">
+            <i class="fas fa-users"></i>
+            <span>Giocatori</span>
+        </button>
+    </nav>
+
+    <script>
+        // DATI INIZIALI PRE-CARICATI DALLE PARTITE REALI (08/10 e 14/10)
+        const initialPlayers = [
+            "Marullo", "Solidoro", "Leone", "De Donno", "De Matteis", 
+            "Vernole", "Cortese", "Arzeni", "Mele", "Rizzello", 
+            "Tondo", "Greco", "De Lorenzo", "Albani", "Sirena", 
+            "Guido", "Jacopo", "Esterno 1", "Esterno 2", "Esterno 3"
+        ];
+
+        const initialMatches = [
+            {
+                id: 1,
+                date: "2026-10-08",
+                scoreGialli: 6,
+                scoreNeri: 4,
+                teamGialli: ["Solidoro", "Vernole", "Cortese", "Leone", "Arzeni", "Mele", "De Donno"],
+                teamNeri: ["Marullo", "De Matteis", "Rizzello", "Tondo", "Esterno 1", "Esterno 2", "Esterno 3"],
+                goals: {
+                    "Solidoro": 2, "Leone": 1, "Vernole": 1, "Cortese": 1, "De Donno": 1,
+                    "Marullo": 2, "De Matteis": 1, "Esterno 1": 1
+                }
+            },
+            {
+                id: 2,
+                date: "2026-10-14",
+                scoreGialli: 9,
+                scoreNeri: 9,
+                teamGialli: ["Greco", "Rizzello", "Vernole", "De Matteis", "Sirena", "Albani", "Tondo"],
+                teamNeri: ["De Lorenzo", "Solidoro", "Jacopo", "Leone", "De Donno", "Guido", "Cortese"],
+                goals: {
+                    "Greco": 3, "Rizzello": 2, "Vernole": 1, "De Matteis": 1, "Sirena": 1, "Leone (autogol)": 1,
+                    "De Lorenzo": 5, "Solidoro": 4
+                }
+            }
+        ];
+
+        // STATO APPLICAZIONE
+        let players = JSON.parse(localStorage.getItem('futsal_players')) || initialPlayers;
+        let matches = JSON.parse(localStorage.getItem('futsal_matches')) || initialMatches;
+
+        let currentMatch = {
+            presenti: [],
+            teamGialli: [],
+            teamNeri: [],
+            goals: {}
+        };
+
+        let classificaSortMode = 'punti';
+
+        // INIZIALIZZAZIONE
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById('match-date').valueAsDate = new Date();
+            renderAll();
+        });
+
+        function saveData() {
+            localStorage.setItem('futsal_players', JSON.stringify(players));
+            localStorage.setItem('futsal_matches', JSON.stringify(matches));
+            renderAll();
+        }
+
+        function renderAll() {
+            renderClassifica();
+            renderPresentiSelector();
+            renderStorico();
+            renderGiocatoriList();
+        }
+
+        // TABS NAVIGATION
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        function switchClassificaTab(mode) {
+            classificaSortMode = mode;
+            document.querySelectorAll('.tabs-header .tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            renderClassifica();
+        }
+
+        // CALCOLO STATISTICHE & CLASSIFICA
+        function calculateStats() {
+            let stats = {};
+            players.forEach(p => {
+                stats[p] = { name: p, punti: 0, pg: 0, v: 0, n: 0, s: 0, gol: 0 };
+            });
+
+            matches.forEach(m => {
+                const isGialliWin = m.scoreGialli > m.scoreNeri;
+                const isDraw = m.scoreGialli === m.scoreNeri;
+
+                // Processa Gialli
+                m.teamGialli.forEach(p => {
+                    if (!stats[p]) stats[p] = { name: p, punti: 0, pg: 0, v: 0, n: 0, s: 0, gol: 0 };
+                    stats[p].pg++;
+                    if (isGialliWin) { stats[p].punti += 3; stats[p].v++; }
+                    else if (isDraw) { stats[p].punti += 1; stats[p].n++; }
+                    else { stats[p].s++; }
+                });
+
+                // Processa Neri
+                m.teamNeri.forEach(p => {
+                    if (!stats[p]) stats[p] = { name: p, punti: 0, pg: 0, v: 0, n: 0, s: 0, gol: 0 };
+                    stats[p].pg++;
+                    if (!isGialliWin && !isDraw) { stats[p].punti += 3; stats[p].v++; }
+                    else if (isDraw) { stats[p].punti += 1; stats[p].n++; }
+                    else { stats[p].s++; }
+                });
+
+                // Processa Gol
+                if (m.goals) {
+                    for (let [player, count] of Object.entries(m.goals)) {
+                        if (stats[player]) {
+                            stats[player].gol += count;
+                        }
+                    }
+                }
+            });
+
+            return Object.values(stats);
+        }
+
+        function renderClassifica() {
+            const stats = calculateStats();
+            
+            if (classificaSortMode === 'punti') {
+                stats.sort((a, b) => b.punti - a.punti || b.gol - a.gol || a.pg - b.pg);
+            } else {
+                stats.sort((a, b) => b.gol - a.gol || b.punti - a.punti);
+            }
+
+            const tbody = document.getElementById('tbody-classifica');
+            tbody.innerHTML = '';
+
+            stats.forEach((p, index) => {
+                if (p.pg === 0 && classificaSortMode === 'punti') return; // Nascondi inattivi se ordinato per punti
+
+                let rankClass = '';
+                if (index === 0) rankClass = 'rank-1';
+                else if (index === 1) rankClass = 'rank-2';
+                else if (index === 2) rankClass = 'rank-3';
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="number"><span class="rank-pos ${rankClass}">${index + 1}</span></td>
+                    <td><strong>${p.name}</strong></td>
+                    <td class="number"><strong>${p.punti}</strong></td>
+                    <td class="number">${p.pg}</td>
+                    <td class="number">${p.v}</td>
+                    <td class="number">${p.n}</td>
+                    <td class="number">${p.s}</td>
+                    <td class="number"><strong>${p.gol}</strong></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // GESTIONE NUOVA PARTITA
+        function renderPresentiSelector() {
+            const container = document.getElementById('lista-presenti');
+            container.innerHTML = '';
+
+            players.sort().forEach(p => {
+                const label = document.createElement('label');
+                label.className = 'player-checkbox';
+                label.innerHTML = `
+                    <input type="checkbox" value="${p}" onchange="updatePresentiCount()">
+                    ${p}
+                `;
+                container.appendChild(label);
+            });
+            updatePresentiCount();
+        }
+
+        function updatePresentiCount() {
+            const checked = document.querySelectorAll('#lista-presenti input:checked');
+            document.getElementById('count-presenti').innerText = `${checked.length} selezionati`;
+        }
+
+        function resetSelezione() {
+            document.querySelectorAll('#lista-presenti input').forEach(i => i.checked = false);
+            updatePresentiCount();
+        }
+
+        function procediAFormazioni() {
+            const checked = Array.from(document.querySelectorAll('#lista-presenti input:checked')).map(i => i.value);
+            if (checked.length < 2) {
+                alert("Seleziona almeno 2 giocatori per creare la partita!");
+                return;
+            }
+
+            currentMatch.presenti = checked;
+            currentMatch.goals = {};
+
+            // Divisione di default a metà
+            const mid = Math.ceil(checked.length / 2);
+            currentMatch.teamGialli = checked.slice(0, mid);
+            currentMatch.teamNeri = checked.slice(mid);
+
+            document.getElementById('step-selezione').style.display = 'none';
+            document.getElementById('step-partita').style.display = 'block';
+
+            renderLiveMatch();
+        }
+
+        function tornaASelezione() {
+            document.getElementById('step-selezione').style.display = 'block';
+            document.getElementById('step-partita').style.display = 'none';
+        }
+
+        function sorteggiaSquadre() {
+            let shuffled = [...currentMatch.presenti].sort(() => Math.random() - 0.5);
+            const mid = Math.ceil(shuffled.length / 2);
+            currentMatch.teamGialli = shuffled.slice(0, mid);
+            currentMatch.teamNeri = shuffled.slice(mid);
+            renderLiveMatch();
+        }
+
+        function renderLiveMatch() {
+            const listGialli = document.getElementById('team-gialli-list');
+            const listNeri = document.getElementById('team-neri-list');
+
+            listGialli.innerHTML = '';
+            listNeri.innerHTML = '';
+
+            let scoreG = 0;
+            let scoreN = 0;
+
+            currentMatch.teamGialli.forEach(p => {
+                const g = currentMatch.goals[p] || 0;
+                scoreG += g;
+                listGialli.appendChild(createPlayerMatchItem(p, g, 'Gialli'));
+            });
+
+            currentMatch.teamNeri.forEach(p => {
+                const g = currentMatch.goals[p] || 0;
+                scoreN += g;
+                listNeri.appendChild(createPlayerMatchItem(p, g, 'Neri'));
+            });
+
+            document.getElementById('score-gialli').innerText = scoreG;
+            document.getElementById('score-neri').innerText = scoreN;
+        }
+
+        function createPlayerMatchItem(player, goals, team) {
+            const li = document.createElement('li');
+            li.className = 'team-player-item';
+            li.innerHTML = `
+                <span>${player} ${goals > 0 ? `? <strong>${goals}</strong>` : ''}</span>
+                <div class="goal-controls">
+                    <button class="btn-goal" onclick="addGoal('${player}', -1)">-</button>
+                    <button class="btn-goal" onclick="addGoal('${player}', 1)">+</button>
+                    <button style="border:none; background:none; cursor:pointer; font-size:0.7rem;" onclick="spostaSquadra('${player}', '${team}')">?</button>
+                </div>
+            `;
+            return li;
+        }
+
+        function addGoal(player, delta) {
+            currentMatch.goals[player] = (currentMatch.goals[player] || 0) + delta;
+            if (currentMatch.goals[player] <= 0) delete currentMatch.goals[player];
+            renderLiveMatch();
+        }
+
+        function spostaSquadra(player, currentTeam) {
+            if (currentTeam === 'Gialli') {
+                currentMatch.teamGialli = currentMatch.teamGialli.filter(p => p !== player);
+                currentMatch.teamNeri.push(player);
+            } else {
+                currentMatch.teamNeri = currentMatch.teamNeri.filter(p => p !== player);
+                currentMatch.teamGialli.push(player);
+            }
+            renderLiveMatch();
+        }
+
+        function salvaPartita() {
+            const matchDate = document.getElementById('match-date').value;
+            let scoreG = 0;
+            let scoreN = 0;
+
+            currentMatch.teamGialli.forEach(p => scoreG += (currentMatch.goals[p] || 0));
+            currentMatch.teamNeri.forEach(p => scoreN += (currentMatch.goals[p] || 0));
+
+            const newMatch = {
+                id: Date.now(),
+                date: matchDate,
+                scoreGialli: scoreG,
+                scoreNeri: scoreN,
+                teamGialli: [...currentMatch.teamGialli],
+                teamNeri: [...currentMatch.teamNeri],
+                goals: {...currentMatch.goals}
+            };
+
+            matches.unshift(newMatch);
+            saveData();
+
+            alert("Partita salvata con successo!");
+            tornaASelezione();
+            resetSelezione();
+            switchTab('classifica');
+        }
+
+        // STORICO PARTITE
+        function renderStorico() {
+            const container = document.getElementById('lista-storico');
+            container.innerHTML = '';
+
+            if (matches.length === 0) {
+                container.innerHTML = '<div class="card">Nessuna partita registrata.</div>';
+                return;
+            }
+
+            matches.forEach(m => {
+                const card = document.createElement('div');
+                card.className = 'card history-card';
+
+                let goalsSummary = [];
+                if (m.goals) {
+                    for (let [p, g] of Object.entries(m.goals)) {
+                        goalsSummary.push(`${p} (${g})`);
+                    }
+                }
+
+                card.innerHTML = `
+                    <div class="card-title">
+                        <span>Partita del ${m.date}</span>
+                        <button class="btn btn-sm btn-danger" onclick="eliminaPartita(${m.id})"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div class="match-score">
+                        <span style="color: #fbc02d;">GIALLI ${m.scoreGialli}</span> - <span style="color: #37474f;">${m.scoreNeri} NERI</span>
+                    </div>
+                    
+                    <div class="team-container" style="margin-bottom: 8px;">
+                        <div style="font-size: 0.75rem;">
+                            <strong>GIALLI:</strong><br>
+                            ${m.teamGialli.join(', ')}
+                        </div>
+                        <div style="font-size: 0.75rem;">
+                            <strong>NERI:</strong><br>
+                            ${m.teamNeri.join(', ')}
+                        </div>
+                    </div>
+
+                    ${goalsSummary.length > 0 ? `
+                        <div style="font-size: 0.8rem; color: #555; background: #f9f9f9; padding: 6px; border-radius: 4px;">
+                            <strong>? Marcatori:</strong> ${goalsSummary.join(', ')}
+                        </div>
+                    ` : ''}
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        function eliminaPartita(id) {
+            if (confirm("Sei sicuro di voler eliminare questa partita dallo storico?")) {
+                matches = matches.filter(m => m.id !== id);
+                saveData();
+            }
+        }
+
+        // GESTIONE GIOCATORI
+        function renderGiocatoriList() {
+            const ul = document.getElementById('lista-giocatori-full');
+            ul.innerHTML = '';
+
+            players.sort().forEach(p => {
+                const li = document.createElement('li');
+                li.className = 'team-player-item';
+                li.innerHTML = `
+                    <span>${p}</span>
+                    <button class="btn btn-sm btn-danger" onclick="eliminaGiocatore('${p}')"><i class="fas fa-times"></i></button>
+                `;
+                ul.appendChild(li);
+            });
+        }
+
+        function aggiungiGiocatore() {
+            const input = document.getElementById('new-player-name');
+            const name = input.value.trim();
+            if (name && !players.includes(name)) {
+                players.push(name);
+                input.value = '';
+                saveData();
+            }
+        }
+
+        function eliminaGiocatore(name) {
+            if (confirm(`Eliminare ${name} dalla rosa dei giocatori?`)) {
+                players = players.filter(p => p !== name);
+                saveData();
+            }
+        }
+    </script>
+</body>
+</html>
