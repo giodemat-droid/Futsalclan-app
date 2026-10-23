@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -33,7 +33,7 @@
         body {
             background-color: var(--bg-color);
             color: var(--text);
-            padding-bottom: 70px;
+            padding-bottom: 75px;
         }
 
         header {
@@ -94,7 +94,7 @@
 
         .container {
             padding: 12px;
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
         }
 
@@ -109,13 +109,13 @@
         .card {
             background: var(--card-bg);
             border-radius: 12px;
-            padding: 16px;
+            padding: 14px;
             margin-bottom: 12px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.06);
         }
 
         .card-title {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 700;
             margin-bottom: 12px;
             color: var(--primary-dark);
@@ -128,7 +128,7 @@
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 10px 16px;
+            padding: 10px 14px;
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
@@ -136,7 +136,7 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             transition: background 0.2s;
             width: 100%;
         }
@@ -155,9 +155,10 @@
         }
 
         .btn-sm {
-            padding: 6px 10px;
-            font-size: 0.8rem;
+            padding: 5px 8px;
+            font-size: 0.78rem;
             width: auto;
+            border-radius: 6px;
         }
 
         .input-group {
@@ -166,17 +167,12 @@
             margin-bottom: 12px;
         }
 
-        input[type="text"], input[type="date"] {
-            flex: 1;
-            padding: 10px;
+        input[type="text"], input[type="date"], input[type="number"] {
+            padding: 8px 10px;
             border: 1px solid #ccc;
             border-radius: 8px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             outline: none;
-        }
-
-        input[type="text"]:focus {
-            border-color: var(--primary);
         }
 
         /* Classifica Table */
@@ -188,12 +184,13 @@
             width: 100%;
             border-collapse: collapse;
             text-align: left;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         th, td {
-            padding: 10px 6px;
+            padding: 8px 4px;
             border-bottom: 1px solid #eee;
+            white-space: nowrap;
         }
 
         th {
@@ -208,8 +205,8 @@
 
         .rank-pos {
             font-weight: bold;
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -225,22 +222,22 @@
         /* Match Builder */
         .player-selector {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 8px;
-            margin-bottom: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+            gap: 6px;
+            margin-bottom: 14px;
             max-height: 250px;
             overflow-y: auto;
-            padding: 4px;
+            padding: 2px;
         }
 
         .player-checkbox {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             background: #f0f0f0;
-            padding: 8px 10px;
+            padding: 6px 8px;
             border-radius: 6px;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             cursor: pointer;
             user-select: none;
         }
@@ -252,12 +249,12 @@
         .team-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 16px;
+            gap: 8px;
+            margin-bottom: 14px;
         }
 
         .team-box {
-            padding: 10px;
+            padding: 8px;
             border-radius: 8px;
             border: 2px solid transparent;
             min-height: 180px;
@@ -275,7 +272,7 @@
 
         .team-header {
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
@@ -287,35 +284,55 @@
         }
 
         .team-player-item {
-            padding: 4px 6px;
-            margin-bottom: 4px;
-            background: rgba(255,255,255,0.7);
-            border-radius: 4px;
-            font-size: 0.8rem;
+            padding: 6px 4px;
+            margin-bottom: 6px;
+            background: rgba(255,255,255,0.85);
+            border-radius: 6px;
+            font-size: 0.78rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .player-row-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .goal-controls {
+        .player-row-controls {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
         }
 
-        .btn-goal {
-            background: var(--primary);
-            color: white;
-            border: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.8rem;
+        .btn-ctrl {
+            background: #eee;
+            border: 1px solid #ccc;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 0.7rem;
             cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-ctrl:active {
+            background: #ddd;
+        }
+
+        .btn-cap {
+            background: #fff3cd;
+            border-color: #ffeba8;
+            color: #856404;
+        }
+
+        .btn-cap.is-cap {
+            background: #ffc107;
+            color: #000;
+            font-weight: bold;
         }
 
         .score-board {
@@ -324,11 +341,9 @@
             align-items: center;
             background: #222;
             color: white;
-            padding: 12px;
+            padding: 10px;
             border-radius: 8px;
-            margin-bottom: 16px;
-            font-size: 1.5rem;
-            font-weight: bold;
+            margin-bottom: 14px;
         }
 
         .score-team {
@@ -338,41 +353,41 @@
         }
 
         .score-team span {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #aaa;
-            font-weight: normal;
         }
 
-        /* Match History */
-        .history-card {
-            border-left: 4px solid var(--primary);
-        }
-
-        .match-date {
-            font-size: 0.8rem;
-            color: var(--text-light);
-            margin-bottom: 6px;
-        }
-
-        .match-score {
-            font-size: 1.2rem;
+        .score-input {
+            width: 45px;
+            text-align: center;
+            font-size: 1.3rem;
             font-weight: bold;
-            margin-bottom: 8px;
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 6px;
+            padding: 2px;
         }
 
         .badge {
             background: #e0e0e0;
             padding: 2px 6px;
             border-radius: 4px;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
         }
 
         .tabs-header {
             display: flex;
-            gap: 8px;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 12px;
             border-bottom: 1px solid #ddd;
             padding-bottom: 8px;
+        }
+
+        .tab-btn-group {
+            display: flex;
+            gap: 6px;
         }
 
         .tab-btn {
@@ -389,6 +404,23 @@
             color: var(--primary);
             border-bottom: 2px solid var(--primary);
         }
+
+        .captain-badge {
+            color: #f59e0b;
+            font-size: 0.75rem;
+            margin-left: 2px;
+        }
+
+        /* Stampa PDF */
+        @media print {
+            body { background: white; padding: 0; }
+            header, nav, .tabs-header button, .btn, #tab-partita, #tab-storico, #tab-giocatori { display: none !important; }
+            .container { max-width: 100%; padding: 0; }
+            .card { box-shadow: none; border: 1px solid #ccc; }
+            .tab-content { display: block !important; }
+            #table-classifica { font-size: 10pt; }
+            th, td { padding: 6pt 4pt; }
+        }
     </style>
 </head>
 <body>
@@ -402,8 +434,11 @@
         <div id="tab-classifica" class="tab-content active">
             <div class="card">
                 <div class="tabs-header">
-                    <button class="tab-btn active" onclick="switchClassificaTab('punti')">Punti</button>
-                    <button class="tab-btn" onclick="switchClassificaTab('gol')">Marcatori</button>
+                    <div class="tab-btn-group">
+                        <button class="tab-btn active" onclick="switchClassificaTab('punti')">Punti</button>
+                        <button class="tab-btn" onclick="switchClassificaTab('gol')">Marcatori</button>
+                    </div>
+                    <button class="btn btn-sm btn-secondary" onclick="esportaPDF()"><i class="fas fa-file-pdf"></i> Esporta PDF</button>
                 </div>
 
                 <div class="table-responsive">
@@ -412,12 +447,14 @@
                             <tr>
                                 <th class="number">#</th>
                                 <th>Giocatore</th>
-                                <th class="number">P</th>
+                                <th class="number">Punti</th>
+                                <th class="number">% Pti</th>
                                 <th class="number">PG</th>
                                 <th class="number">V</th>
                                 <th class="number">N</th>
                                 <th class="number">S</th>
-                                <th class="number">G</th>
+                                <th class="number">Gol</th>
+                                <th class="number">Gol/PG</th>
                             </tr>
                         </thead>
                         <tbody id="tbody-classifica">
@@ -440,32 +477,32 @@
                     <!-- Popolato via JS -->
                 </div>
                 <div style="display: flex; gap: 8px;">
-                    <button class="btn btn-secondary" onclick="resetSelezione()">Deseleziona Tutto</button>
-                    <button class="btn" onclick="procediAFormazioni()">Crea Squadre <i class="fas fa-arrow-right"></i></button>
+                    <button class="btn btn-secondary" onclick="resetSelezione()">Deseleziona</button>
+                    <button class="btn" onclick="procediAFormazioni()">Formazioni <i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
 
             <!-- Step 2: Formazioni e Tabellino Live -->
             <div class="card" id="step-partita" style="display: none;">
                 <div class="card-title">
-                    <span>2. Partita & Tabellino</span>
+                    <span id="match-editor-title">2. Partita & Tabellino</span>
                     <button class="btn btn-sm btn-secondary" onclick="tornaASelezione()"><i class="fas fa-edit"></i> Rosa</button>
                 </div>
 
-                <div class="input-group">
-                    <label style="font-size: 0.85rem; align-self: center;">Data:</label>
-                    <input type="date" id="match-date">
+                <div class="input-group" style="align-items: center;">
+                    <label style="font-size: 0.82rem; font-weight:600;">Data:</label>
+                    <input type="date" id="match-date" style="flex:1;">
                 </div>
 
                 <div class="score-board">
                     <div class="score-team">
                         <span>GIALLI</span>
-                        <div id="score-gialli">0</div>
+                        <input type="number" id="score-gialli" class="score-input" value="0" min="0">
                     </div>
-                    <div>-</div>
+                    <div style="font-size:1.2rem; font-weight:bold;">-</div>
                     <div class="score-team">
                         <span>NERI</span>
-                        <div id="score-neri">0</div>
+                        <input type="number" id="score-neri" class="score-input" value="0" min="0">
                     </div>
                 </div>
 
@@ -479,9 +516,7 @@
                             <span>GIALLI</span>
                             <i class="fas fa-tshirt" style="color: #fbc02d;"></i>
                         </div>
-                        <ul class="team-player-list" id="team-gialli-list">
-                            <!-- Popolato via JS -->
-                        </ul>
+                        <ul class="team-player-list" id="team-gialli-list"></ul>
                     </div>
 
                     <div class="team-box team-neri">
@@ -489,13 +524,11 @@
                             <span>NERI</span>
                             <i class="fas fa-tshirt" style="color: #37474f;"></i>
                         </div>
-                        <ul class="team-player-list" id="team-neri-list">
-                            <!-- Popolato via JS -->
-                        </ul>
+                        <ul class="team-player-list" id="team-neri-list"></ul>
                     </div>
                 </div>
 
-                <button class="btn btn-success" onclick="salvaPartita()"><i class="fas fa-save"></i> Salva e Termina Partita</button>
+                <button class="btn btn-success" onclick="salvaPartita()"><i class="fas fa-save"></i> Salva Partita</button>
             </div>
         </div>
 
@@ -511,16 +544,14 @@
             <div class="card">
                 <div class="card-title">Nuovo Giocatore</div>
                 <div class="input-group">
-                    <input type="text" id="new-player-name" placeholder="Nome giocatore">
-                    <button class="btn btn-sm" onclick="aggiungiGiocatore()"><i class="fas fa-plus"></i></button>
+                    <input type="text" id="new-player-name" placeholder="Nome e cognome" style="flex:1;">
+                    <button class="btn btn-sm" onclick="aggiungiGiocatore()"><i class="fas fa-plus"></i> Aggiungi</button>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-title">Rosa Giocatori</div>
-                <ul class="team-player-list" id="lista-giocatori-full">
-                    <!-- Popolato via JS -->
-                </ul>
+                <ul class="team-player-list" id="lista-giocatori-full"></ul>
             </div>
         </div>
     </div>
@@ -546,7 +577,7 @@
     </nav>
 
     <script>
-        // DATI INIZIALI PRE-CARICATI DALLE PARTITE REALI (08/10 e 14/10)
+        // DATI INIZIALI PRE-CARICATI
         const initialPlayers = [
             "Marullo", "Solidoro", "Leone", "De Donno", "De Matteis", 
             "Vernole", "Cortese", "Arzeni", "Mele", "Rizzello", 
@@ -560,24 +591,26 @@
                 date: "2026-10-08",
                 scoreGialli: 6,
                 scoreNeri: 4,
+                capitanoGialli: "Solidoro",
+                capitanoNeri: "Marullo",
                 teamGialli: ["Solidoro", "Vernole", "Cortese", "Leone", "Arzeni", "Mele", "De Donno"],
                 teamNeri: ["Marullo", "De Matteis", "Rizzello", "Tondo", "Esterno 1", "Esterno 2", "Esterno 3"],
-                goals: {
-                    "Solidoro": 2, "Leone": 1, "Vernole": 1, "Cortese": 1, "De Donno": 1,
-                    "Marullo": 2, "De Matteis": 1, "Esterno 1": 1
-                }
+                goals: { "Solidoro": 2, "Leone": 1, "Vernole": 1, "Cortese": 1, "De Donno": 1, "Marullo": 2, "De Matteis": 1, "Esterno 1": 1 },
+                autogol: {},
+                rigoriSbagliati: {}
             },
             {
                 id: 2,
                 date: "2026-10-14",
                 scoreGialli: 9,
                 scoreNeri: 9,
+                capitanoGialli: "Vernole",
+                capitanoNeri: "Solidoro",
                 teamGialli: ["Greco", "Rizzello", "Vernole", "De Matteis", "Sirena", "Albani", "Tondo"],
                 teamNeri: ["De Lorenzo", "Solidoro", "Jacopo", "Leone", "De Donno", "Guido", "Cortese"],
-                goals: {
-                    "Greco": 3, "Rizzello": 2, "Vernole": 1, "De Matteis": 1, "Sirena": 1, "Leone (autogol)": 1,
-                    "De Lorenzo": 5, "Solidoro": 4
-                }
+                goals: { "Greco": 3, "Rizzello": 2, "Vernole": 1, "De Matteis": 1, "Sirena": 1, "De Lorenzo": 5, "Solidoro": 4 },
+                autogol: { "Leone": 1 },
+                rigoriSbagliati: {}
             }
         ];
 
@@ -585,16 +618,21 @@
         let players = JSON.parse(localStorage.getItem('futsal_players')) || initialPlayers;
         let matches = JSON.parse(localStorage.getItem('futsal_matches')) || initialMatches;
 
+        let editingMatchId = null;
+
         let currentMatch = {
             presenti: [],
             teamGialli: [],
             teamNeri: [],
-            goals: {}
+            capitanoGialli: null,
+            capitanoNeri: null,
+            goals: {},
+            autogol: {},
+            rigoriSbagliati: {}
         };
 
         let classificaSortMode = 'punti';
 
-        // INIZIALIZZAZIONE
         document.addEventListener("DOMContentLoaded", () => {
             document.getElementById('match-date').valueAsDate = new Date();
             renderAll();
@@ -613,7 +651,6 @@
             renderGiocatoriList();
         }
 
-        // TABS NAVIGATION
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
@@ -624,16 +661,16 @@
 
         function switchClassificaTab(mode) {
             classificaSortMode = mode;
-            document.querySelectorAll('.tabs-header .tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-btn-group .tab-btn').forEach(btn => btn.classList.remove('active'));
             event.currentTarget.classList.add('active');
             renderClassifica();
         }
 
-        // CALCOLO STATISTICHE & CLASSIFICA
+        // STATISTICHE & CLASSIFICA
         function calculateStats() {
             let stats = {};
             players.forEach(p => {
-                stats[p] = { name: p, punti: 0, pg: 0, v: 0, n: 0, s: 0, gol: 0 };
+                stats[p] = { name: p, punti: 0, pg: 0, v: 0, n: 0, s: 0, gol: 0, autogol: 0, rigoriSbagliati: 0 };
             });
 
             matches.forEach(m => {
@@ -642,7 +679,7 @@
 
                 // Processa Gialli
                 m.teamGialli.forEach(p => {
-                    if (!stats[p]) stats[p] = { name: p, punti: 0, pg: 0, v: 0, n: 0, s: 0, gol: 0 };
+                    if (!stats[p]) stats[p] = { name: p, punti: 0, pg: 0, v: 0, n: 0, s: 0, gol: 0, autogol: 0, rigoriSbagliati: 0 };
                     stats[p].pg++;
                     if (isGialliWin) { stats[p].punti += 3; stats[p].v++; }
                     else if (isDraw) { stats[p].punti += 1; stats[p].n++; }
@@ -651,19 +688,27 @@
 
                 // Processa Neri
                 m.teamNeri.forEach(p => {
-                    if (!stats[p]) stats[p] = { name: p, punti: 0, pg: 0, v: 0, n: 0, s: 0, gol: 0 };
+                    if (!stats[p]) stats[p] = { name: p, punti: 0, pg: 0, v: 0, n: 0, s: 0, gol: 0, autogol: 0, rigoriSbagliati: 0 };
                     stats[p].pg++;
                     if (!isGialliWin && !isDraw) { stats[p].punti += 3; stats[p].v++; }
                     else if (isDraw) { stats[p].punti += 1; stats[p].n++; }
                     else { stats[p].s++; }
                 });
 
-                // Processa Gol
+                // Processa Eventi
                 if (m.goals) {
-                    for (let [player, count] of Object.entries(m.goals)) {
-                        if (stats[player]) {
-                            stats[player].gol += count;
-                        }
+                    for (let [p, c] of Object.entries(m.goals)) {
+                        if (stats[p]) stats[p].gol += c;
+                    }
+                }
+                if (m.autogol) {
+                    for (let [p, c] of Object.entries(m.autogol)) {
+                        if (stats[p]) stats[p].autogol += c;
+                    }
+                }
+                if (m.rigoriSbagliati) {
+                    for (let [p, c] of Object.entries(m.rigoriSbagliati)) {
+                        if (stats[p]) stats[p].rigoriSbagliati += c;
                     }
                 }
             });
@@ -684,29 +729,35 @@
             tbody.innerHTML = '';
 
             stats.forEach((p, index) => {
-                if (p.pg === 0 && classificaSortMode === 'punti') return; // Nascondi inattivi se ordinato per punti
+                if (p.pg === 0 && classificaSortMode === 'punti') return;
 
                 let rankClass = '';
                 if (index === 0) rankClass = 'rank-1';
                 else if (index === 1) rankClass = 'rank-2';
                 else if (index === 2) rankClass = 'rank-3';
 
+                const maxPuntiPossibili = p.pg * 3;
+                const percPunti = maxPuntiPossibili > 0 ? ((p.punti / maxPuntiPossibili) * 100).toFixed(0) + '%' : '0%';
+                const golPerPg = p.pg > 0 ? (p.gol / p.pg).toFixed(2) : '0.00';
+
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td class="number"><span class="rank-pos ${rankClass}">${index + 1}</span></td>
                     <td><strong>${p.name}</strong></td>
                     <td class="number"><strong>${p.punti}</strong></td>
+                    <td class="number">${percPunti}</td>
                     <td class="number">${p.pg}</td>
                     <td class="number">${p.v}</td>
                     <td class="number">${p.n}</td>
                     <td class="number">${p.s}</td>
                     <td class="number"><strong>${p.gol}</strong></td>
+                    <td class="number">${golPerPg}</td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
-        // GESTIONE NUOVA PARTITA
+        // GESTIONE NUOVA / EDIT PARTITA
         function renderPresentiSelector() {
             const container = document.getElementById('lista-presenti');
             container.innerHTML = '';
@@ -715,7 +766,7 @@
                 const label = document.createElement('label');
                 label.className = 'player-checkbox';
                 label.innerHTML = `
-                    <input type="checkbox" value="${p}" onchange="updatePresentiCount()">
+                    <input type="checkbox" value="${p}" onchange="updatePresentiCount()" ${currentMatch.presenti.includes(p) ? 'checked' : ''}>
                     ${p}
                 `;
                 container.appendChild(label);
@@ -730,23 +781,23 @@
 
         function resetSelezione() {
             document.querySelectorAll('#lista-presenti input').forEach(i => i.checked = false);
+            currentMatch.presenti = [];
             updatePresentiCount();
         }
 
         function procediAFormazioni() {
             const checked = Array.from(document.querySelectorAll('#lista-presenti input:checked')).map(i => i.value);
             if (checked.length < 2) {
-                alert("Seleziona almeno 2 giocatori per creare la partita!");
+                alert("Seleziona almeno 2 giocatori per la partita!");
                 return;
             }
 
             currentMatch.presenti = checked;
-            currentMatch.goals = {};
-
-            // Divisione di default a met�
-            const mid = Math.ceil(checked.length / 2);
-            currentMatch.teamGialli = checked.slice(0, mid);
-            currentMatch.teamNeri = checked.slice(mid);
+            if (!editingMatchId) {
+                const mid = Math.ceil(checked.length / 2);
+                currentMatch.teamGialli = checked.slice(0, mid);
+                currentMatch.teamNeri = checked.slice(mid);
+            }
 
             document.getElementById('step-selezione').style.display = 'none';
             document.getElementById('step-partita').style.display = 'block';
@@ -767,6 +818,15 @@
             renderLiveMatch();
         }
 
+        function setCapitano(player, team) {
+            if (team === 'Gialli') {
+                currentMatch.capitanoGialli = (currentMatch.capitanoGialli === player) ? null : player;
+            } else {
+                currentMatch.capitanoNeri = (currentMatch.capitanoNeri === player) ? null : player;
+            }
+            renderLiveMatch();
+        }
+
         function renderLiveMatch() {
             const listGialli = document.getElementById('team-gialli-list');
             const listNeri = document.getElementById('team-neri-list');
@@ -774,42 +834,72 @@
             listGialli.innerHTML = '';
             listNeri.innerHTML = '';
 
-            let scoreG = 0;
-            let scoreN = 0;
-
             currentMatch.teamGialli.forEach(p => {
-                const g = currentMatch.goals[p] || 0;
-                scoreG += g;
-                listGialli.appendChild(createPlayerMatchItem(p, g, 'Gialli'));
+                listGialli.appendChild(createPlayerMatchItem(p, 'Gialli'));
             });
 
             currentMatch.teamNeri.forEach(p => {
-                const g = currentMatch.goals[p] || 0;
-                scoreN += g;
-                listNeri.appendChild(createPlayerMatchItem(p, g, 'Neri'));
+                listNeri.appendChild(createPlayerMatchItem(p, 'Neri'));
             });
-
-            document.getElementById('score-gialli').innerText = scoreG;
-            document.getElementById('score-neri').innerText = scoreN;
         }
 
-        function createPlayerMatchItem(player, goals, team) {
+        function createPlayerMatchItem(player, team) {
+            const goals = currentMatch.goals[player] || 0;
+            const ag = currentMatch.autogol[player] || 0;
+            const rs = currentMatch.rigoriSbagliati[player] || 0;
+            const isCap = (team === 'Gialli' && currentMatch.capitanoGialli === player) || (team === 'Neri' && currentMatch.capitanoNeri === player);
+
             const li = document.createElement('li');
             li.className = 'team-player-item';
             li.innerHTML = `
-                <span>${player} ${goals > 0 ? `? <strong>${goals}</strong>` : ''}</span>
-                <div class="goal-controls">
-                    <button class="btn-goal" onclick="addGoal('${player}', -1)">-</button>
-                    <button class="btn-goal" onclick="addGoal('${player}', 1)">+</button>
-                    <button style="border:none; background:none; cursor:pointer; font-size:0.7rem;" onclick="spostaSquadra('${player}', '${team}')">?</button>
+                <div class="player-row-top">
+                    <span>
+                        <strong>${player}</strong>
+                        ${isCap ? '<span class="captain-badge">👑 (C)</span>' : ''}
+                    </span>
+                    <button class="btn-ctrl btn-cap ${isCap ? 'is-cap' : ''}" onclick="setCapitano('${player}', '${team}')">Cap</button>
+                </div>
+                <div class="player-row-controls">
+                    <span style="font-size:0.7rem; color:#666; margin-right:auto;">
+                        ${goals > 0 ? `⚽${goals} ` : ''}${ag > 0 ? `AG:${ag} ` : ''}${rs > 0 ? `RS:${rs}` : ''}
+                    </span>
+                    <button class="btn-ctrl" onclick="addEvent('${player}', 'goals', 1, '${team}')">+Gol</button>
+                    <button class="btn-ctrl" onclick="addEvent('${player}', 'goals', -1, '${team}')">-</button>
+                    <button class="btn-ctrl" onclick="addEvent('${player}', 'autogol', 1, '${team}')">+AG</button>
+                    <button class="btn-ctrl" onclick="addEvent('${player}', 'rigoriSbagliati', 1, '${team}')">+RS</button>
+                    <button class="btn-ctrl" onclick="spostaSquadra('${player}', '${team}')">⇄</button>
                 </div>
             `;
             return li;
         }
 
-        function addGoal(player, delta) {
-            currentMatch.goals[player] = (currentMatch.goals[player] || 0) + delta;
-            if (currentMatch.goals[player] <= 0) delete currentMatch.goals[player];
+        function addEvent(player, type, delta, team) {
+            if (!currentMatch[type]) currentMatch[type] = {};
+            currentMatch[type][player] = (currentMatch[type][player] || 0) + delta;
+            if (currentMatch[type][player] <= 0) delete currentMatch[type][player];
+
+            // Se viene aggiunto un Gol, incrementa il punteggio della squadra
+            if (type === 'goals') {
+                if (team === 'Gialli') {
+                    let input = document.getElementById('score-gialli');
+                    input.value = Math.max(0, parseInt(input.value || 0) + delta);
+                } else {
+                    let input = document.getElementById('score-neri');
+                    input.value = Math.max(0, parseInt(input.value || 0) + delta);
+                }
+            }
+
+            // Se viene aggiunto un Autogol, incrementa il punteggio della SQUADRA AVVERSARIA
+            if (type === 'autogol' && delta > 0) {
+                if (team === 'Gialli') {
+                    let input = document.getElementById('score-neri');
+                    input.value = parseInt(input.value || 0) + 1;
+                } else {
+                    let input = document.getElementById('score-gialli');
+                    input.value = parseInt(input.value || 0) + 1;
+                }
+            }
+
             renderLiveMatch();
         }
 
@@ -817,38 +907,78 @@
             if (currentTeam === 'Gialli') {
                 currentMatch.teamGialli = currentMatch.teamGialli.filter(p => p !== player);
                 currentMatch.teamNeri.push(player);
+                if (currentMatch.capitanoGialli === player) currentMatch.capitanoGialli = null;
             } else {
                 currentMatch.teamNeri = currentMatch.teamNeri.filter(p => p !== player);
                 currentMatch.teamGialli.push(player);
+                if (currentMatch.capitanoNeri === player) currentMatch.capitanoNeri = null;
             }
             renderLiveMatch();
         }
 
         function salvaPartita() {
             const matchDate = document.getElementById('match-date').value;
-            let scoreG = 0;
-            let scoreN = 0;
+            const scoreG = parseInt(document.getElementById('score-gialli').value) || 0;
+            const scoreN = parseInt(document.getElementById('score-neri').value) || 0;
 
-            currentMatch.teamGialli.forEach(p => scoreG += (currentMatch.goals[p] || 0));
-            currentMatch.teamNeri.forEach(p => scoreN += (currentMatch.goals[p] || 0));
-
-            const newMatch = {
-                id: Date.now(),
+            const matchData = {
+                id: editingMatchId || Date.now(),
                 date: matchDate,
                 scoreGialli: scoreG,
                 scoreNeri: scoreN,
+                capitanoGialli: currentMatch.capitanoGialli,
+                capitanoNeri: currentMatch.capitanoNeri,
                 teamGialli: [...currentMatch.teamGialli],
                 teamNeri: [...currentMatch.teamNeri],
-                goals: {...currentMatch.goals}
+                goals: {...currentMatch.goals},
+                autogol: {...currentMatch.autogol},
+                rigoriSbagliati: {...currentMatch.rigoriSbagliati}
             };
 
-            matches.unshift(newMatch);
-            saveData();
+            if (editingMatchId) {
+                const idx = matches.findIndex(m => m.id === editingMatchId);
+                if (idx !== -1) matches[idx] = matchData;
+                editingMatchId = null;
+                document.getElementById('match-editor-title').innerText = "2. Partita & Tabellino";
+            } else {
+                matches.unshift(matchData);
+            }
 
+            saveData();
             alert("Partita salvata con successo!");
+            
+            // Reset
+            currentMatch = { presenti: [], teamGialli: [], teamNeri: [], capitanoGialli: null, capitanoNeri: null, goals: {}, autogol: {}, rigoriSbagliati: {} };
             tornaASelezione();
             resetSelezione();
             switchTab('classifica');
+        }
+
+        // EDIT PARTITA DALLO STORICO
+        function modificaPartita(id) {
+            const m = matches.find(match => match.id === id);
+            if (!m) return;
+
+            editingMatchId = m.id;
+            document.getElementById('match-editor-title').innerText = "Modifica Partita #" + m.id;
+            document.getElementById('match-date').value = m.date;
+            document.getElementById('score-gialli').value = m.scoreGialli;
+            document.getElementById('score-neri').value = m.scoreNeri;
+
+            currentMatch = {
+                presenti: [...m.teamGialli, ...m.teamNeri],
+                teamGialli: [...m.teamGialli],
+                teamNeri: [...m.teamNeri],
+                capitanoGialli: m.capitanoGialli || null,
+                capitanoNeri: m.capitanoNeri || null,
+                goals: {...(m.goals || {})},
+                autogol: {...(m.autogol || {})},
+                rigoriSbagliati: {...(m.rigoriSbagliati || {})}
+            };
+
+            switchTab('partita');
+            renderPresentiSelector();
+            procediAFormazioni();
         }
 
         // STORICO PARTITE
@@ -865,17 +995,27 @@
                 const card = document.createElement('div');
                 card.className = 'card history-card';
 
-                let goalsSummary = [];
+                let eventsSummary = [];
                 if (m.goals) {
-                    for (let [p, g] of Object.entries(m.goals)) {
-                        goalsSummary.push(`${p} (${g})`);
-                    }
+                    for (let [p, g] of Object.entries(m.goals)) eventsSummary.push(`${p} (${g}⚽)`);
                 }
+                if (m.autogol) {
+                    for (let [p, g] of Object.entries(m.autogol)) eventsSummary.push(`${p} (${g} Autogol)`);
+                }
+                if (m.rigoriSbagliati) {
+                    for (let [p, g] of Object.entries(m.rigoriSbagliati)) eventsSummary.push(`${p} (${g} Rigore Sbagliato)`);
+                }
+
+                const gialliList = m.teamGialli.map(p => p === m.capitanoGialli ? `${p} 👑` : p).join(', ');
+                const neriList = m.teamNeri.map(p => p === m.capitanoNeri ? `${p} 👑` : p).join(', ');
 
                 card.innerHTML = `
                     <div class="card-title">
                         <span>Partita del ${m.date}</span>
-                        <button class="btn btn-sm btn-danger" onclick="eliminaPartita(${m.id})"><i class="fas fa-trash"></i></button>
+                        <div>
+                            <button class="btn btn-sm btn-secondary" onclick="modificaPartita(${m.id})" style="margin-right:4px;"><i class="fas fa-edit"></i> Modifica</button>
+                            <button class="btn btn-sm btn-danger" onclick="eliminaPartita(${m.id})"><i class="fas fa-trash"></i></button>
+                        </div>
                     </div>
                     <div class="match-score">
                         <span style="color: #fbc02d;">GIALLI ${m.scoreGialli}</span> - <span style="color: #37474f;">${m.scoreNeri} NERI</span>
@@ -883,18 +1023,16 @@
                     
                     <div class="team-container" style="margin-bottom: 8px;">
                         <div style="font-size: 0.75rem;">
-                            <strong>GIALLI:</strong><br>
-                            ${m.teamGialli.join(', ')}
+                            <strong>GIALLI:</strong><br>${gialliList}
                         </div>
                         <div style="font-size: 0.75rem;">
-                            <strong>NERI:</strong><br>
-                            ${m.teamNeri.join(', ')}
+                            <strong>NERI:</strong><br>${neriList}
                         </div>
                     </div>
 
-                    ${goalsSummary.length > 0 ? `
-                        <div style="font-size: 0.8rem; color: #555; background: #f9f9f9; padding: 6px; border-radius: 4px;">
-                            <strong>? Marcatori:</strong> ${goalsSummary.join(', ')}
+                    ${eventsSummary.length > 0 ? `
+                        <div style="font-size: 0.78rem; color: #444; background: #f8f9fa; padding: 6px; border-radius: 4px;">
+                            <strong>Eventi:</strong> ${eventsSummary.join(', ')}
                         </div>
                     ` : ''}
                 `;
@@ -904,7 +1042,7 @@
         }
 
         function eliminaPartita(id) {
-            if (confirm("Sei sicuro di voler eliminare questa partita dallo storico?")) {
+            if (confirm("Eliminare questa partita dallo storico?")) {
                 matches = matches.filter(m => m.id !== id);
                 saveData();
             }
@@ -918,8 +1056,10 @@
             players.sort().forEach(p => {
                 const li = document.createElement('li');
                 li.className = 'team-player-item';
+                li.style.flexDirection = 'row';
+                li.style.justifyContent = 'space-between';
                 li.innerHTML = `
-                    <span>${p}</span>
+                    <span><strong>${p}</strong></span>
                     <button class="btn btn-sm btn-danger" onclick="eliminaGiocatore('${p}')"><i class="fas fa-times"></i></button>
                 `;
                 ul.appendChild(li);
@@ -941,6 +1081,11 @@
                 players = players.filter(p => p !== name);
                 saveData();
             }
+        }
+
+        // ESPORTAZIONE PDF
+        function esportaPDF() {
+            window.print();
         }
     </script>
 </body>
